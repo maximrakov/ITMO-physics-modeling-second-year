@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 accVol = 50  # (Вольт) ускоряющиеся напряжение
 width = 0.55 * (10 ** -9)  # (Метры) ширина щели
@@ -7,7 +8,7 @@ h = 1.054571817 * (10 ** -34)  # (Дж * с) постоянно планка (Н
 PI = math.pi # число Пи
 m = 9.1093837 * (10 ** -31) # (кг) масса электрона
 e = 1.60217663 * (10 ** -19) # Кулона заряд электрона
-measurements = 100 # Количество измерений
+measurements = int(input()) # Количество измерений
 
 def pxk(k):
     return ((2 * k - 1) * PI * 2 * h) / (12 * width)
@@ -47,5 +48,9 @@ for i in range(0, measurements):
             break
 print(sensors)
 
+norm = []
 for i in range(0, len(sensors)):
-    print(sensors[i] / sensors[0])
+    norm.append(sensors[i] / sensors[0])
+print(norm)
+plt.bar(range(0, len(norm)), norm)
+plt.show()
