@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 accVol = 50  # (Вольт) ускоряющиеся напряжение
 width = 0.55 * (10 ** -9)  # (Метры) ширина щели
-h = 1.054571817 * (10 ** -34)  # (Дж * с) постоянно планка (НЕТОЧНО)
+h = 1.054571817 * (10 ** -34)  # (Дж * с) постоянно планка
 PI = math.pi # число Пи
 m = 9.1093837 * (10 ** -31) # (кг) масса электрона
 e = 1.60217663 * (10 ** -19) # Кулона заряд электрона
@@ -28,7 +28,7 @@ def phi_k(pxk):
 max = mod_wave(pxk(1))
 sum = 0
 expected = []
-for i in range(1, 10):
+for i in range(1, 11):
     t = mod_wave(pxk(i)) / max
     expected.append(t)
     sum += t
@@ -52,5 +52,10 @@ norm = []
 for i in range(0, len(sensors)):
     norm.append(sensors[i] / sensors[0])
 print(norm)
+print("Длина волны де Бройля")
+print(h/np.min(norm))
+
 plt.bar(range(0, len(norm)), norm)
+plt.bar(range(0, len(expected)), expected, fill=False, hatch='/')
+plt.xticks(np.arange(0, 10, step=1))
 plt.show()
