@@ -3,15 +3,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 accVol = 50  # (Вольт) ускоряющиеся напряжение
-width = 0.55 * (10 ** -9)  # (Метры) ширина щели
+width = 0.55 * (10**-9)  # (Метры) ширина щели
 h = 1.054571817 * (10 ** -34)  # (Дж * с) постоянно планка
 PI = math.pi # число Пи
 m = 9.1093837 * (10 ** -31) # (кг) масса электрона
 e = 1.60217663 * (10 ** -19) # Кулона заряд электрона
 measurements = int(input()) # Количество измерений
 
+if width > 10 ** -9 :
+    raise Exception("Opening is too wide")
+
 def pxk(k):
-    return ((2 * k - 1) * PI * 2 * h) / (12 * width)
+    return ((2 * k - 1) * PI) / 12
 
 p = (e * accVol * 2 * m) ** 0.5 # (кг * м) / c, импульс p частицы
 
@@ -53,7 +56,7 @@ for i in range(0, len(sensors)):
     norm.append(sensors[i] / sensors[0])
 print(norm)
 print("Длина волны де Бройля")
-print(h/np.min(norm))
+print(h/p)
 
 plt.bar(range(0, len(norm)), norm)
 plt.bar(range(0, len(expected)), expected, fill=False, hatch='/')
